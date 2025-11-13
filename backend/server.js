@@ -1,6 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import sql from './config/db.js';
+import rateLimiter from './config/upstash.js';
 
 dotenv.config();
 
@@ -8,13 +9,22 @@ const PORT = process.env.PORT || 4001
 
 const app = express();
 
+//middleware
+app.use(rateLimiter);
+app.use(express.json());
+
+app.use((req, res, next) => {
+    console.log("Hi from Middleware, we hit a request", req.method);
+    next();
+});
+
 async function initDB() {
     try {
         await sql`CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,
             name VARCHAR(100),
             email VARCHAR(100) UNIQUE,
-            password VARCHAR(100)
+            password VARCsHAR(100)
         )`;
         console.log('Database initialized successfully');
     }
