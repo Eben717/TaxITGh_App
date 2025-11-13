@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import rateLimiter from './middleware/rateLimiter.js';
 import sql from './config/db.js';
-import rateLimiter from './config/upstash.js';
 
 dotenv.config();
 
@@ -24,7 +24,7 @@ async function initDB() {
             id SERIAL PRIMARY KEY,
             name VARCHAR(100),
             email VARCHAR(100) UNIQUE,
-            password VARCsHAR(100)
+            password VARCHAR(100)
         )`;
         console.log('Database initialized successfully');
     }
