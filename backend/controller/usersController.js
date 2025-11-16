@@ -12,3 +12,24 @@ export async function getUsersById(req, res) {
     }
 }
 }
+
+export async function createUser(req, res) {
+    try {
+           const {name, email, password_hash} = req.body;
+    
+            if(!name || !email || !password_hash === undefined) {
+            return res.status(400).json({message: 'All fields are required'});
+            }
+    
+              const user =     
+                        await sql`INSERT INTO users (name, email, password_hash)
+                        VALUES (${name}, ${email}, ${password_hash})
+                        RETURNING *`;
+                        console.log(user);
+                        res.status(201).json(user[0]);
+
+    } catch (error) {
+        console.log('Error creating user:', error);
+        res.status(500).json({ message: 'Internal Server Error' });
+    }
+}

@@ -7,13 +7,15 @@ export const sql = neon(process.env.DATABASE_URL);
 
 export async function initDB() {
     try {
-        await sql`CREATE TABLE IF NOT EXISTS users (
+        await sql
+        `CREATE TABLE IF NOT EXISTS users (
             id SERIAL PRIMARY KEY,
             name VARCHAR(255) NOT NULL,
             email VARCHAR(255) UNIQUE NOT NULL,
-            password_hash VARCHAR(255),
-            created_at TIMESTAMP DEFAULT CURRENT_DATE
+            password_hash VARCHAR(255) ,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )`;
+        
         console.log('Database initialized successfully');
     }
     catch (error) {
