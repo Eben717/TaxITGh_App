@@ -1,7 +1,8 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import rateLimiter from './middleware/rateLimiter.js';
-import sql from './config/db.js';
+import { initDB } from './config/db.js';
+import usersRoute from './routes/usersRoute.js';
 
 dotenv.config();
 
@@ -18,24 +19,7 @@ app.use((req, res, next) => {
     next();
 });
 
-async function initDB() {
-    try {
-        await sql`CREATE TABLE IF NOT EXISTS users (
-            id SERIAL PRIMARY KEY,
-            name VARCHAR(100),
-            email VARCHAR(100) UNIQUE,
-            password VARCHAR(100)
-        )`;
-        console.log('Database initialized successfully');
-    }
-    catch (error) {
-        console.error('Error initializing database:', error);
-    }
-}
-
-app.get('/', (req, res) => {
-    res.send('Welcome to the TaxITGh App Server');
-});
+app.use('/api/users', usersRoute);
 
 initDB().then(() => {
 
