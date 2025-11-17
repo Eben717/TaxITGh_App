@@ -1,5 +1,6 @@
 import { sql } from '../config/db.js';
 
+//get users by id
 export async function getUsersById(req, res) {
  {
     try {
@@ -13,6 +14,7 @@ export async function getUsersById(req, res) {
 }
 }
 
+//create user
 export async function createUser(req, res) {
     try {
            const {name, email, password_hash} = req.body;
@@ -31,5 +33,33 @@ export async function createUser(req, res) {
     } catch (error) {
         console.log('Error creating user:', error);
         res.status(500).json({ message: 'Internal Server Error' });
+    }
+}
+
+//delete user
+
+export async function deleteUser(req, res) {
+    try {
+        const {userId} = req.params;
+        await sql
+        `DELETE FROM users WHERE id = ${userId}`;
+        res.status(200).json({message: 'User deleted successfully'});
+    } catch (error) {
+        console.log('Error deleting user:', error);
+        res.status(500).json({message: 'Internal Server Error'});
+    }
+}
+
+//update user details
+export async function updateUser(req, res) {
+    try {
+        const {userId} = req.params;
+        const {name, email, password_hash} = req.body;
+        const updatedUser = await sql
+        `UPDATE users SET name = ${name}, email = ${email}, password_hash = ${password_hash} WHERE id = ${userId} RETURNING *`;
+        res.status(200).json(updatedUser[0]);
+    } catch (error) {
+        console.log('Error updating user:', error);
+        res.status(500).json({message: 'Internal Server Error'});
     }
 }
