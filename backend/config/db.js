@@ -24,7 +24,7 @@ export async function initDB() {
             registration_information VARCHAR(255) NOT NULL,
             name_of_directors VARCHAR(255) NOT NULL,
             name_of_auditors VARCHAR(255) NOT NULL,
-            industry_sector VARCHAR(255) NOT NULL,
+            industry VARCHAR(255) NOT NULL,
             contact_information VARCHAR(255) NOT NULL,
             tax_identification_number VARCHAR(255) NOT NULL,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
