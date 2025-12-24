@@ -2,8 +2,8 @@ import {sql} from "../config/db.js";
 //get companies by id
 export async function getCompaniesById(req, res) {
     try {
-        const { companiesid } = req.params;
-        const company = await sql`SELECT * FROM companies WHERE id = ${companiesid}`;
+        const { companiesId } = req.params;
+        const company = await sql`SELECT * FROM companies WHERE id = ${companiesId}`;
         res.json(company);
     } catch (error) {
         console.error('Error fetching company:', error);
@@ -32,9 +32,9 @@ export async function createCompany(req, res) {
 //update company 
 export async function updateCompany(req, res) {
     try {
-        const { companiesid } = req.params;
+        const { companiesId } = req.params;
         const { name, address, registration_information, name_of_directors, name_of_auditors, industry, contact_information, tax_identification_number } = req.body;
-        const company = await sql`UPDATE companies SET name = ${name}, address = ${address}, registration_information = ${registration_information}, name_of_directors = ${name_of_directors}, name_of_auditors = ${name_of_auditors}, industry = ${industry}, contact_information = ${contact_information}, tax_identification_number = ${tax_identification_number} WHERE id = ${companiesid} RETURNING *`;
+        const company = await sql`UPDATE companies SET name = ${name}, address = ${address}, registration_information = ${registration_information}, name_of_directors = ${name_of_directors}, name_of_auditors = ${name_of_auditors}, industry = ${industry}, contact_information = ${contact_information}, tax_identification_number = ${tax_identification_number} WHERE id = ${companiesId} RETURNING *`;
         res.json(company);
     } catch (error) {
         console.error('Error updating company:', error);

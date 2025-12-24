@@ -3,12 +3,11 @@ import { getCompaniesById, createCompany, updateCompany } from '../controller/co
 
 const router = express.Router();
 
-router.get('/:id', getCompaniesById);
+router.get('/:companiesId', getCompaniesById);
 
 router.post('/', createCompany);
 
-router.put('/:id', updateCompany);
-
+router.put('/:companiesId', updateCompany);
 
 
 export default router;
