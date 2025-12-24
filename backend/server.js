@@ -4,6 +4,7 @@ import rateLimiter from './middleware/rateLimiter.js';
 import { initDB } from './config/db.js';
 import usersRoute from './routes/usersRoute.js';
 import companiesRoute from './routes/companiesRoute.js';
+import companyTaxRoute from './routes/companyTaxRoute.js';
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use((req, res, next) => {
 
 app.use('/api/users', usersRoute);
 app.use('/api/companies', companiesRoute);
+app.use('/api/companyTax', companyTaxRoute);
 
 initDB().then(() => {
 
