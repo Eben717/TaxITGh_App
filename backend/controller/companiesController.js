@@ -41,3 +41,15 @@ export async function updateCompany(req, res) {
         res.status(500).json({ error: 'Internal server error' });
     }
 }
+
+//delete company
+export async function deleteCompany(req, res) {
+    try {
+        const { companiesId } = req.params;
+        await sql`DELETE FROM companies WHERE id = ${companiesId}`;
+        res.status(200).json({ message: 'Company deleted successfully' });
+    } catch (error) {
+        console.error('Error deleting company:', error);
+        res.status(500).json({ error: 'Internal server error' });
+    }
+}
