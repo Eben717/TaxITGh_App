@@ -1,4 +1,4 @@
-import {sql} from '../db.js';
+import {sql} from '../config/db.js';
 
 // Get all company taxes
 export async function getAllCompanyTaxes(req, res) {
